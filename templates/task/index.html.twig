@@ -1,6 +1,5 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello {{ controller_name }}!{% endblock %}
 
 {% block body %}
 <style>
@@ -9,12 +8,14 @@
 </style>
 
 <div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! </h1>
 
     Todo list:
-    <ul>
-        <li>Your controller at <code><a href="{{ 'src/Controller/TaskController.php'|file_link(0) }}">src/Controller/TaskController.php</a></code></li>
-        <li>Your template at <code><a href="{{ 'templates/task/index.html.twig'|file_link(0) }}">templates/task/index.html.twig</a></code></li>
+	<ul>
+	{% for task in tasks %}
+
+        <li> {{ task.name }}: status {{task.status}}  </li>
+
+    {% endfor %}
     </ul>
 </div>
 {% endblock %}
