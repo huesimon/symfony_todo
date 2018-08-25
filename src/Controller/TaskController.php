@@ -5,7 +5,10 @@ namespace App\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Request;
 use App\Entity\Task;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 class TaskController extends AbstractController
 {
     /**
@@ -52,23 +55,34 @@ class TaskController extends AbstractController
 	}
 
 	/**
-     * @Route("/task/save", name="save")
+     * @Route("/task/new", name="new")
      */
-	public function saveTask($title) {
-		$entityManager =$this->getDoctrine()->getManager();
-		$task = new Task();
-		$task->setName('test');
-		$task->setStatus(false);
+	public function newTask(Request $request) {
+		$entityManager =$this->getDoctrine()->getManager();	
+		$task = new Task(); 
+		//TODO: Add user to the task
 		$task->setUserId(0);
+		$task->setStatus(false);
+		$form = $this->createFormBuilder($task)
+            ->add('name', TextType::class)
+            ->add('save', SubmitType::class, array('label' => 'Create Task'))
+			->getForm();
 
-		$entityManager->persist($task);
-		
-        $entityManager->flush();
+		$form->handleRequest($request);
 
-		
+		if ($form->isSubmitted() && $form->isValid()) {
+			$task = $form->getData();
 
-        return new Response('Saved new task with id '.$task->getId() . ' and task name:' . $task->getName());
+			$entityManager = $this->getDoctrine()->getManager();
+			$entityManager->persist($task);
+			$entityManager->flush();
 
+			return $this->redirectToRoute('task');
+		}
+			
+		return $this->render('task/new.html.twig', array(
+			'form' => $form->createView(),
+		));
 	}
 
 
