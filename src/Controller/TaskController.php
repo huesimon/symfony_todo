@@ -31,7 +31,7 @@ class TaskController extends AbstractController
 		$task->setStatus(true);		
 		$entityManager->flush();
 		
-        return new Response('Task with id: '.$task->getId() . ' is set to complete');
+		return $this->redirectToRoute('task');
 	}
 
 	/**

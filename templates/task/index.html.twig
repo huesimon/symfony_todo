@@ -1,6 +1,9 @@
 {% extends 'base.html.twig' %}
 
 
+{% block stylesheet %}
+
+{% endblock %}
 {% block body %}
 <style>
     .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
@@ -18,11 +21,12 @@
 		{% if task.status %} 
 			Task completed
 		{% else %}
-			<button><a href="/task/{{ task.id }}/complete"> mark as completed </a></button>
+			<a class="btn btn-primary " role="button" href="/task/{{ task.id }}/complete"> mark as completed </a>
 		{% endif %}
 		</li>
 
     {% endfor %}
     </ul>
+	<a href="/new" class="btn btn-success btn-lg" role="button">Create new task</a>
 </div>
 {% endblock %}
