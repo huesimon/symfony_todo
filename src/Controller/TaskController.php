@@ -13,6 +13,7 @@ class TaskController extends AbstractController
 {
     /**
      * @Route("/task", name="task")
+	 * @Route("/")
      */
     public function index() {
 		$tasks = $this->getDoctrine()->getRepository(Task::class)->findAll();
