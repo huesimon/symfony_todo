@@ -19,6 +19,19 @@ class TaskController extends AbstractController
 	}
 	
 	/**
+	 * @Route("/task/{id}/complete")
+	 */
+	public function markAsComplete($id) {
+		$entityManager =$this->getDoctrine()->getManager();
+		$task = $this->getDoctrine()->getRepository(Task::class)->find($id);
+		
+		$task->setStatus(true);		
+		$entityManager->flush();
+		
+        return new Response('Task with id: '.$task->getId() . ' is set to complete');
+	}
+
+	/**
      * @Route("/task/save/test", name="saveTaskTest")
      */
 	public function saveTaskTest() {
@@ -37,7 +50,6 @@ class TaskController extends AbstractController
         return new Response('Saved new task with id '.$task->getId() . ' and task name:' . $task->getName());
 
 	}
-	//✅
 
 	/**
      * @Route("/task/save", name="save")

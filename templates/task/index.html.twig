@@ -13,7 +13,14 @@
 	<ul>
 	{% for task in tasks %}
 
-        <li> {{ task.name }}: status {{task.status}}  </li>
+        <li> {{ task.name }} 
+		status: 
+		{% if task.status %} 
+			Task completed
+		{% else %}
+			<button><a href="/task/{{ task.id }}/complete"> mark as completed </a></button>
+		{% endif %}
+		</li>
 
     {% endfor %}
     </ul>
