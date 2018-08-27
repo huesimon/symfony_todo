@@ -12,23 +12,26 @@
 
 <div class="example-wrapper">
 
-    Todo list:
-	<ul>
+Todo list:
+<ul class="list-group">
 	{% for task in tasks %}
 
-        <li> {{ task.name }} 
-		status: 
+	<li class="list-group-item d-flex justify-content-between align-items-center">
+		{{ task.name }}
+			
 		{% if task.status %} 
-			Task completed
+			<a class="btn btn-success" role="button" href="#">Completed! </a>
+		
 		{% else %}
 			<a class="btn btn-primary " role="button" href="/task/{{ task.id }}/complete"> mark as completed </a>
 		{% endif %}
-		</li>
+		
+	</li>
 
     {% endfor %}
 	
-    </ul>
-	
+</ul>
+
 	{{ form_start(form) }}
 	{{ form_widget(form) }}
 	{{ form_end(form) }}    
