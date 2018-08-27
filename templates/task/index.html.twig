@@ -20,10 +20,10 @@ Todo list:
 		{{ task.name }}
 			
 		{% if task.status %} 
-			<a class="btn btn-success" role="button" href="#">Completed! </a>
+			<a class="btn btn-success" title="Mark task as incomplete" role="button" href="/task/{{ task.id }}/incomplete">Completed! </a>
 		
 		{% else %}
-			<a class="btn btn-primary " role="button" href="/task/{{ task.id }}/complete"> mark as completed </a>
+			<a class="btn btn-primary " title="Mark task as complete" role="button" href="/task/{{ task.id }}/complete"> mark as completed </a>
 		{% endif %}
 		
 	</li>

@@ -64,6 +64,19 @@ class TaskController extends AbstractController
 	}
 
 	/**
+	 * @Route("/task/{id}/incomplete")
+	 */
+	public function markAsIncomplete($id) {
+		$entityManager =$this->getDoctrine()->getManager();
+		$task = $this->getDoctrine()->getRepository(Task::class)->find($id);
+		
+		$task->setStatus(false);		
+		$entityManager->flush();
+		
+		return $this->redirectToRoute('task');
+	}
+
+	/**
      * @Route("/task/save/test", name="saveTaskTest")
      */
 	public function saveTaskTest() {
