@@ -83,38 +83,6 @@ class TaskController extends AbstractController
 
 	}
 
-	/**
-     * @Route("/task/new", name="new")
-     */
-	public function newTask(Request $request) {
-		$entityManager =$this->getDoctrine()->getManager();	
-		$task = new Task(); 
-		//TODO: Add user to the task
-		$task->setUserId(0);
-		$task->setStatus(false);
-		$form = $this->createFormBuilder($task)
-            ->add('name', TextType::class)
-            ->add('save', SubmitType::class, array('label' => 'Create Task'))
-			->getForm();
-
-		$form->handleRequest($request);
-
-		if ($form->isSubmitted() && $form->isValid()) {
-			$task = $form->getData();
-
-			$entityManager = $this->getDoctrine()->getManager();
-			$entityManager->persist($task);
-			$entityManager->flush();
-
-			return $this->redirectToRoute('task');
-		}
-			
-		return $this->render('task/new.html.twig', array(
-			'form' => $form->createView(),
-		));
-	}
-
-
 }
 
 
