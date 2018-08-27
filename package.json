@@ -1,0 +1,23 @@
+{
+  "devDependencies": {
+    "bootstrap": "^4.1.3"
+  },
+  "name": "todoapp",
+  "description": "![alt text](https://raw.githubusercontent.com/huesimon/symfony_todo/master/screenshots/task_menu.PNG)",
+  "version": "1.0.0",
+  "main": "index.js",
+  "dependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/huesimon/symfony_todo.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/huesimon/symfony_todo/issues"
+  },
+  "homepage": "https://github.com/huesimon/symfony_todo#readme"
+}

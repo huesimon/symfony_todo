@@ -8,6 +8,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use App\Entity\Task;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 class TaskController extends AbstractController
 {
@@ -15,10 +16,37 @@ class TaskController extends AbstractController
      * @Route("/task", name="task")
 	 * @Route("/")
      */
-    public function index() {
+    public function index(Request $request) {
+		//Find all tasks
 		$tasks = $this->getDoctrine()->getRepository(Task::class)->findAll();
+		
+		//Create task class for the form
+		$task = new Task(); 
+		$task->setUserId(0);
+		$task->setStatus(false);
+
+		//Create the form
+		$form = $this->createFormBuilder($task)
+            ->add('name', TextType::class, array('label' => 'New task'))
+            ->add('save', SubmitType::class, array('label' => 'Create Task'))
+			->getForm();
+		
+		//If post request
+		$form->handleRequest($request);
+
+		if ($form->isSubmitted() && $form->isValid()) {
+			$task = $form->getData();
+
+			$entityManager = $this->getDoctrine()->getManager();
+			$entityManager->persist($task);
+			$entityManager->flush();
+
+			return $this->redirectToRoute('task');
+		}
+		
         return $this->render('task/index.html.twig', [
-            'tasks' => $tasks,
+			'tasks' => $tasks,
+			'form' => $form->createView(),
         ]);
 	}
 	
