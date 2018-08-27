@@ -26,7 +26,13 @@
 		</li>
 
     {% endfor %}
+	
     </ul>
-	<a href="{{ path('new') }}" class="btn btn-success btn-lg" role="button">Create new task</a>
+	
+	{{ form_start(form) }}
+	{{ form_widget(form) }}
+	{{ form_end(form) }}    
+	
+	
 </div>
 {% endblock %}
